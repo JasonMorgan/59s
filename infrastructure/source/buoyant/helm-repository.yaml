@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: linkerd-buoyant
-  namespace: buoyant-cloud
+  namespace: linkerd-buoyant
 spec:
   interval: 2m
   url: https://helm.buoyant.cloud
