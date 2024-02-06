@@ -7,7 +7,7 @@ spec:
   components:
     linkerd:
       version: preview-24.2.1
-      license: ${buoyant-cloud-credentials:=buoyant_license}
+      license: ${buoyant_license}
       controlPlaneConfig:
         proxy:
           image:
