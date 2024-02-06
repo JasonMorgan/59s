@@ -1,0 +1,11 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: booksapp
+  namespace: default
+spec:
+  prefix: /
+  service: webapp.booksapp:7000
+  rewrite: ""
+  host: booksapp.k8s.59s.io
