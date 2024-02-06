@@ -24,11 +24,11 @@ spec:
     - kind: Secret
       name: buoyant-cloud-credentials
       valuesKey: api_client_id
-      targetPath: metadata.clientID
+      targetPath: api.clientID
     - kind: Secret
       name: buoyant-cloud-credentials
       valuesKey: api_client_secret
-      targetPath: metadata.clientSecret
+      targetPath: api.clientSecret
   install:
     crds: CreateReplace
   upgrade:
