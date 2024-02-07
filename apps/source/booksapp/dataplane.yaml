@@ -1,0 +1,8 @@
+apiVersion: linkerd.buoyant.io/v1alpha1
+kind: DataPlane
+metadata:
+  name: booksapp
+  namespace: booksapp
+spec:
+  workloadSelector:
+    matchLabels: {}
