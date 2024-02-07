@@ -23,7 +23,8 @@ spec:
       replicaCount: 1
       podAnnotations:
         linkerd.io/inject: enabled
-      cloudConnectToken: ${cloud_connect_token}
+      agent:
+        cloudConnectToken: ${cloud_connect_token}
   install:
     crds: CreateReplace
   upgrade:
