@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager
@@ -11,14 +11,13 @@ spec:
   sourceRef:
     kind: GitRepository
     name: 59s
-  validation: client
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: cert-manager
       namespace: cert-manager
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: issuer
@@ -32,58 +31,69 @@ spec:
   sourceRef:
     kind: GitRepository
     name: 59s
-  validation: client
   healthChecks:
     - apiVersion: cert-manager.io/v1
       kind: Certificate
       name: linkerd-identity-issuer
       namespace: linkerd
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: bcloud
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./infrastructure/source/bcloud
+  path: ./infrastructure/source/buoyant
   prune: true
   sourceRef:
     kind: GitRepository
     name: 59s
-  validation: client
   healthChecks:
-    - apiVersion: cert-manager.io/v1
-      kind: DaemonSet
-      name: linkerd-identity-issuer
+    - kind: DaemonSet
+      name: buoyant-cloud-metrics
+      namespace: linkerd-buoyant
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/values/metadata
+          value: 
+            agentName: "test"
+      target:
+        kind: HelmRelease
+        name: linkerd-buoyant
+        namespace: linkerd-buoyant
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: linkerd
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./infrastructure/source/linkerd
+  dependsOn:
+    - name: issuer
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: 59s
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: linkerd-enterprise
+  healthChecks:
+    - kind: Deployment
+      name: linkerd-identity
+      namespace: linkerd
+    - kind: Deployment
+      name: linkerd-destination
+      namespace: linkerd
+    - kind: Deployment
+      name: linkerd-proxy-injector
       namespace: linkerd
 # ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-# kind: Kustomization
-# metadata:
-#   name: linkerd
-#   namespace: flux-system
-# spec:
-#   interval: 1m0s
-#   path: ./infrastructure/source/linkerd
-#   dependsOn:
-#     - name: issuer
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: 59s
-#   validation: client
-#   healthChecks:
-#     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-#       kind: HelmRelease
-#       name: linkerd-control-plane
-#       namespace: linkerd
-#     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-#       kind: HelmRelease
-#       name: linkerd-crds
-#       namespace: linkerd
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
 #   name: emissary
@@ -92,16 +102,17 @@ spec:
 #   interval: 3m0s
 #   path: ./infrastructure/source/emissary
 #   prune: true
+#   dependsOn:
+#     - name: linkerd
 #   sourceRef:
 #     kind: GitRepository
 #     name: 59s
-#   validation: client
 #   healthChecks:
 #     - kind: Deployment
 #       name: emissary-apiext
 #       namespace: emissary-system
 # ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
 #   name: ambassador
@@ -115,14 +126,17 @@ spec:
 #   sourceRef:
 #     kind: GitRepository
 #     name: 59s
-#   validation: client
+#   postBuild:
+#     substituteFrom:
+#       - kind: Secret
+#         name: aes-token
 #   healthChecks:
 #     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
 #       kind: HelmRelease
 #       name: ambassador-edge-stack
 #       namespace: edge-stack
 # ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
 #   name: finalizers
@@ -137,4 +151,4 @@ spec:
 #   sourceRef:
 #     kind: GitRepository
 #     name: 59s
-#   validation: client
+# 
