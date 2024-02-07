@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1
 kind: Kustomization
 resources:
-  - https://app.getambassador.io/yaml/emissary/3.7.2/emissary-crds.yaml
+  - https://app.getambassador.io/yaml/edge-stack/3.10.1/aes-crds.yaml

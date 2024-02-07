@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: edge-stack
-      version: 8.7.2
+      version: 8.10.1
       sourceRef:
         kind: HelmRepository
         name: ambassador
@@ -23,6 +23,7 @@ spec:
       replicaCount: 1
       podAnnotations:
         linkerd.io/inject: enabled
+      cloudConnectToken: ${cloud_connect_token}
   install:
     crds: CreateReplace
   upgrade:
