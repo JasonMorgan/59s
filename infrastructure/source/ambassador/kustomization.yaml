@@ -5,3 +5,4 @@ resources:
   - ambassador-repo.yaml
   - ambassador-helm-release.yaml
   - ambassador-listener.yaml
+  - dataplane.yaml
