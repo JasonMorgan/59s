@@ -108,7 +108,6 @@ spec:
     kind: GitRepository
     name: 59s
   healthChecks:
-    healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: linkerd-viz
@@ -129,7 +128,6 @@ spec:
     kind: GitRepository
     name: 59s
   healthChecks:
-    healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: flagger

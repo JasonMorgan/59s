@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 set -e
 
 if [ -z "${2}" ]
@@ -46,7 +46,7 @@ case "${1}" in
           kubectl config delete-cluster "${c}" || true
           kubectl config delete-user "${c}" || true
           civo k8s create "${c}" -n $number -s "${size}" -r Traefik-v2-nodeport -w # || true
-          civo k8s config -sym "${c}" || true
+          civo k8s config -sy "${c}" || true
           # sleep 60
           ;;
         local)
@@ -87,11 +87,16 @@ then
   for c in "${clusters[@]}"
   {
     ## Set context
-    civo k8s config "${c}" -sym
+    civo k8s config "${c}" -sy
     kubectl ctx "${c}"
     kubectl ns default
+
+    ## Ready helm repos
+    helm repo update > /dev/null
+    
+    # Prep cluster
     flux install
-    kubectl apply -f 59s/repo.yaml
+    kubectl apply -f repo.yaml
     kubectl create ns linkerd
     kubectl create ns linkerd-buoyant
     kubectl apply -f secrets/buoyant.yaml
@@ -108,14 +113,14 @@ then
           --cert=secrets/ca.dev.crt \
           --key=secrets/ca.dev.key \
           --namespace=linkerd || true
-        kubectl apply -f clusters/production/cluster.dev.yaml
+        kubectl apply -f clusters/dev/cluster.dev.yaml
         ;;
       *)
         kubectl create secret tls linkerd-trust-anchor \
           --cert=secrets/ca.test.crt \
           --key=secrets/ca.test.key \
           --namespace=linkerd || true
-        kubectl apply -f clusters/production/cluster.test.yaml
+        kubectl apply -f clusters/test/cluster.test.yaml
         ;;
     esac
   }

@@ -4,4 +4,4 @@ resources:
   - helm-repository.yaml
   - linkerd-buoyant.yaml
   - namespace.yaml
-  - dataplane.yaml
+  # - dataplane.yaml
