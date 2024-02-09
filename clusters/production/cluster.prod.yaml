@@ -58,7 +58,7 @@ spec:
         - op: add
           path: /spec/values/metadata
           value: 
-            agentName: "prod"
+            agentName: "prod1"
       target:
         kind: HelmRelease
         name: linkerd-buoyant
@@ -82,6 +82,26 @@ spec:
     substituteFrom:
       - kind: Secret
         name: linkerd-enterprise
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/components/linkerd/controlPlaneConfig/
+          value: 
+            identityTrustAnchorsPEM: |
+              -----BEGIN CERTIFICATE-----
+              MIIBjjCCATSgAwIBAgIRANkLlCxrwAp9YbbsVTRtcdEwCgYIKoZIzj0EAwIwJTEj
+              MCEGA1UEAxMacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjQwMjA4MjEy
+              NTM4WhcNMzQwMjA1MjEyNTM4WjAlMSMwIQYDVQQDExpyb290LmxpbmtlcmQuY2x1
+              c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJHNkBa8cNe6LC+R
+              PMuLY7dbmhrWnQ+OtbQiWcWlhr6m1xzyajHnMPNCvMx95+uEuQtfbhp/vd6sjMY5
+              TXYDiKGjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0G
+              A1UdDgQWBBT37xEa9eCg/jcxj77yy3w+OcVZnDAKBggqhkjOPQQDAgNIADBFAiAw
+              /+t4jyQmjr2/6NDfleHwDN7zCLgnrjbFrJNKtYIE/AIhAIXfggWMb0TVd+pVP8jx
+              y5kmBCNJPZHoH6SnI3bnfD01
+              -----END CERTIFICATE-----
+      target:
+        kind: ControlPlane
+        name: linkerd-control-plane
   healthChecks:
     - kind: Deployment
       name: linkerd-identity
@@ -133,7 +153,7 @@ spec:
       name: flagger
       namespace: flagger
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: emojivoto
@@ -165,7 +185,7 @@ spec:
       name: voting
       namespace: emojivoto
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: booksapp
