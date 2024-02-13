@@ -197,7 +197,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: gitops
+    name: 59s
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
