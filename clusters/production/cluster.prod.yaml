@@ -84,21 +84,20 @@ spec:
         name: linkerd-enterprise
   patches:
     - patch: |-
-        - op: add
-          path: /spec/components/linkerd/controlPlaneConfig/
-          value: 
-            identityTrustAnchorsPEM: |
-              -----BEGIN CERTIFICATE-----
-              MIIBjjCCATSgAwIBAgIRANkLlCxrwAp9YbbsVTRtcdEwCgYIKoZIzj0EAwIwJTEj
-              MCEGA1UEAxMacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjQwMjA4MjEy
-              NTM4WhcNMzQwMjA1MjEyNTM4WjAlMSMwIQYDVQQDExpyb290LmxpbmtlcmQuY2x1
-              c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJHNkBa8cNe6LC+R
-              PMuLY7dbmhrWnQ+OtbQiWcWlhr6m1xzyajHnMPNCvMx95+uEuQtfbhp/vd6sjMY5
-              TXYDiKGjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0G
-              A1UdDgQWBBT37xEa9eCg/jcxj77yy3w+OcVZnDAKBggqhkjOPQQDAgNIADBFAiAw
-              /+t4jyQmjr2/6NDfleHwDN7zCLgnrjbFrJNKtYIE/AIhAIXfggWMb0TVd+pVP8jx
-              y5kmBCNJPZHoH6SnI3bnfD01
-              -----END CERTIFICATE-----
+        - op: replace
+          path: /spec/components/linkerd/controlPlaneConfig/identityTrustAnchorsPEM
+          value: |
+            -----BEGIN CERTIFICATE-----
+            MIIBjjCCATSgAwIBAgIRANkLlCxrwAp9YbbsVTRtcdEwCgYIKoZIzj0EAwIwJTEj
+            MCEGA1UEAxMacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjQwMjA4MjEy
+            NTM4WhcNMzQwMjA1MjEyNTM4WjAlMSMwIQYDVQQDExpyb290LmxpbmtlcmQuY2x1
+            c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJHNkBa8cNe6LC+R
+            PMuLY7dbmhrWnQ+OtbQiWcWlhr6m1xzyajHnMPNCvMx95+uEuQtfbhp/vd6sjMY5
+            TXYDiKGjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0G
+            A1UdDgQWBBT37xEa9eCg/jcxj77yy3w+OcVZnDAKBggqhkjOPQQDAgNIADBFAiAw
+            /+t4jyQmjr2/6NDfleHwDN7zCLgnrjbFrJNKtYIE/AIhAIXfggWMb0TVd+pVP8jx
+            y5kmBCNJPZHoH6SnI3bnfD01
+            -----END CERTIFICATE-----
       target:
         kind: ControlPlane
         name: linkerd-control-plane
