@@ -210,7 +210,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./apps/source/dataplanes
+  path: ./infrastructure/source/dataplanes
   prune: true
   dependsOn:
     - name: emojivoto
