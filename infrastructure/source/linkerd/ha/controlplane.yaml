@@ -6,7 +6,7 @@ metadata:
 spec:
   components:
     linkerd:
-      version: preview-24.2.1
+      version: enterprise-2.15.0-rc1
       license: ${buoyant_license}
       controlPlaneConfig:
         proxy:

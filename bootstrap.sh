@@ -90,9 +90,6 @@ then
     civo k8s config "${c}" -sy
     kubectl ctx "${c}"
     kubectl ns default
-
-    ## Ready helm repos
-    helm repo update > /dev/null
     
     # Prep cluster
     flux install
