@@ -9,6 +9,18 @@ spec:
       version: enterprise-2.15.0-rc1
       license: ${buoyant_license}
       controlPlaneConfig:
+        identityTrustAnchorsPEM: |
+          -----BEGIN CERTIFICATE-----
+          MIIBjjCCATOgAwIBAgIQSxdzYyTHZiktP0gsc9CHkzAKBggqhkjOPQQDAjAlMSMw
+          IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yNDAyMDgyMTI2
+          MDNaFw0zNDAyMDUyMTI2MDNaMCUxIzAhBgNVBAMTGnJvb3QubGlua2VyZC5jbHVz
+          dGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7tG1/M0DDO1Q1Yqh
+          O/5iHxhebM4PH796wUjYzE9bTw/HIAEtHfXnQxrdq6wV375SdQ2JutyuH/SNZaIL
+          wJjUkaNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYD
+          VR0OBBYEFEYv6t32SNNRu3DQKNvWandLIInZMAoGCCqGSM49BAMCA0kAMEYCIQCO
+          HmO+0CDw1kGx9bcJIaVF091x371voUDF9pVF1BVH0QIhAMuoSgitp9fV/s6zO8bc
+          sXhVzYigdSKFq0bj+7yiOzHo
+          -----END CERTIFICATE-----
         proxy:
           resources:
             cpu:
