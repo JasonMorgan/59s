@@ -159,13 +159,13 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./gitops/flux/apps/source/emojivoto
+  path: ./apps/source/emojivoto
   dependsOn:
     - name: flagger
   prune: true
   sourceRef:
     kind: GitRepository
-    name: gitops
+    name: 59s
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
@@ -191,7 +191,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./gitops/flux/apps/source/booksapp
+  path: ./apps/source/booksapp
   dependsOn:
     - name: flagger
   prune: true

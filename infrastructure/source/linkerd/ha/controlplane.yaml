@@ -29,7 +29,7 @@ spec:
               limit: 250Mi
               request: 20Mi
           image:
-            version: preview-24.2.1-hazl
+            version: preview-24.2.2-hazl
         identity:
           issuer:
             scheme: kubernetes.io/tls

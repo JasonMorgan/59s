@@ -178,13 +178,13 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./gitops/flux/apps/source/emojivoto
+  path: ./apps/source/emojivoto
   prune: true
   dependsOn:
     - name: linkerd
   sourceRef:
     kind: GitRepository
-    name: gitops
+    name: 59s
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
