@@ -6,7 +6,7 @@ metadata:
 spec:
   components:
     linkerd:
-      version: enterprise-2.15.0-rc1
+      version: preview-24.2.2
       license: ${buoyant_license}
       controlPlaneConfig:
         identityTrustAnchorsPEM: |
