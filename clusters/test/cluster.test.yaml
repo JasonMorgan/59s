@@ -202,3 +202,18 @@ spec:
       kind: Deployment
       name: voting
       namespace: emojivoto
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dataplanes
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./apps/source/dataplanes
+  prune: true
+  dependsOn:
+    - name: emojivoto
+  sourceRef:
+    kind: GitRepository
+    name: 59s

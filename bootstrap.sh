@@ -45,7 +45,7 @@ case "${1}" in
           kubectl config delete-context "${c}" || true
           kubectl config delete-cluster "${c}" || true
           kubectl config delete-user "${c}" || true
-          civo k8s create "${c}" -n $number -s "${size}" -r Traefik-v2-nodeport -w # || true
+          civo k8s create "${c}" -n $number -s "${size}" -r traefik2-nodeport -w # || true
           civo k8s config -sy "${c}" || true
           # sleep 60
           ;;
@@ -93,31 +93,34 @@ then
     
     # Prep cluster
     flux install
-    kubectl apply -f repo.yaml
-    kubectl create ns linkerd
-    kubectl create ns linkerd-buoyant
-    kubectl apply -f secrets/buoyant.yaml
+    kubectl apply --context "${c}" -f repo.yaml
+    kubectl create ns --context "${c}" linkerd || true
+    kubectl create ns --context "${c}" linkerd-buoyant || true
+    kubectl apply --context "${c}" -f secrets/buoyant.yaml
     case "${c}" in
       prod*)
         kubectl create secret tls linkerd-trust-anchor \
+           --context "${c}" \
           --cert=secrets/ca.prod.crt \
           --key=secrets/ca.prod.key \
           --namespace=linkerd || true
-        kubectl apply -f clusters/production/cluster.prod.yaml
+        kubectl apply --context "${c}" -f clusters/production/cluster.prod.yaml
         ;;
       dev)
         kubectl create secret tls linkerd-trust-anchor \
+           --context "${c}" \
           --cert=secrets/ca.dev.crt \
           --key=secrets/ca.dev.key \
           --namespace=linkerd || true
-        kubectl apply -f clusters/dev/cluster.dev.yaml
+        kubectl apply --context "${c}" -f clusters/dev/cluster.dev.yaml
         ;;
       *)
         kubectl create secret tls linkerd-trust-anchor \
+           --context "${c}" \
           --cert=secrets/ca.test.crt \
           --key=secrets/ca.test.key \
           --namespace=linkerd || true
-        kubectl apply -f clusters/test/cluster.test.yaml
+        kubectl apply --context "${c}" -f clusters/test/cluster.test.yaml
         ;;
     esac
   }
