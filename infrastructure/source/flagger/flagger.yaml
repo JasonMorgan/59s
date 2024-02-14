@@ -19,11 +19,11 @@ spec:
         name: flagger
         namespace: linkerd-viz
       interval: 40m
-    values:
-      meshProvider: linkerd
-      metricsServer: http://prometheus.linkerd-viz:9090
-      linkerdAuthPolicy:
-        create: true
+  values:
+    meshProvider: linkerd
+    metricsServer: http://prometheus.linkerd-viz:9090
+    linkerdAuthPolicy:
+      create: true
   install:
     crds: CreateReplace
   upgrade:
