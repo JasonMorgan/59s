@@ -230,3 +230,18 @@ spec:
   sourceRef:
     kind: GitRepository
     name: 59s
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: finalizers
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./infrastructure/source/finalizers
+  prune: true
+  dependsOn:
+    - name: linkerd
+  sourceRef:
+    kind: GitRepository
+    name: 59s
