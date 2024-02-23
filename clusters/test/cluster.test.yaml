@@ -98,6 +98,12 @@ spec:
             HmO+0CDw1kGx9bcJIaVF091x371voUDF9pVF1BVH0QIhAMuoSgitp9fV/s6zO8bc
             sXhVzYigdSKFq0bj+7yiOzHo
             -----END CERTIFICATE-----
+        - op: replace
+          path: /spec/components/linkerd/version
+          value: enterprise-2.15.1-0
+        - op: replace
+          path: /spec/components/linkerd/controlPlaneConfig/proxy/image/version
+          value: enterprise-2.15.1-0
       target:
         kind: ControlPlane
         name: linkerd-control-plane
